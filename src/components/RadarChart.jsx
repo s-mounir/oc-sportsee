@@ -1,6 +1,12 @@
+import styled from 'styled-components'
+
+const RadarChartDiv = styled.div`
+  grid-area: 3 / 2 / 5 / 3;
+`
+
 function RadarChart() {
     return (
-      <div>RadarChart</div>
+      <RadarChartDiv>RadarChart</RadarChartDiv>
     );
   }
   

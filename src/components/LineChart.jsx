@@ -1,6 +1,12 @@
+import styled from 'styled-components'
+
+const LineChartDiv = styled.div`
+    grid-area: 3 / 1 / 5 / 2; 
+`
+
 function LineChart() {
     return (
-      <div>LineChart</div>
+      <LineChartDiv>LineChart</LineChartDiv>
     );
   }
   
