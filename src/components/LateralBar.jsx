@@ -41,7 +41,7 @@ const Copiryght = styled.p`
   transform: rotate(-90deg);
   position: absolute;
   left: -10px;
-  top: 500px;
+  bottom: 130px;
   width: 138px;
   margin: 0;
 `

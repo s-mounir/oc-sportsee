@@ -1,10 +1,9 @@
 import styled from 'styled-components'
+import * as d3 from "d3";
 
 const BarChartDiv = styled.div`
-    width: 835px;
-    height: 320px;
-    background: #020203;
-    grid-area: 1 / 1 / 3 / 4; 
+  background: #020203;
+  grid-area: 1 / 1 / 3 / 4; 
 `
 
 function BarChart() {
