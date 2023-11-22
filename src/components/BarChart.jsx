@@ -1,15 +1,101 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import * as d3 from "d3";
 
 const BarChartDiv = styled.div`
-  background: #020203;
-  grid-area: 1 / 1 / 3 / 4; 
+  background: #FBFBFB;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0212249);
+  border-radius: 5px;
+  grid-area: 1 / 1 / 3 / 4;
 `
 
 function BarChart() {
-    return (
-      <BarChartDiv>BarChart</BarChartDiv>
-    );
-  }
-  
-  export default BarChart
+  const dataset = [{jour:1,poids:69.6,calories:310},
+    {jour:2,poids:70,calories:320},
+    {jour:3,poids:69.9,calories:330},
+    {jour:4,poids:69.8,calories:340},
+    {jour:5,poids:69.7,calories:350},
+    {jour:6,poids:69.6,calories:360},
+    {jour:7,poids:69.5,calories:370},
+    {jour:8,poids:69.4,calories:380},
+    {jour:9,poids:69.3,calories:390},
+    {jour:10,poids:69.2,calories:400}];
+
+  const width = 600;
+  const height = 230;
+  const marginTop = 70;
+  const marginRight = 90;
+  const marginBottom = 50;
+  const marginLeft = 40;
+
+  const barWidth = (width - marginRight - marginLeft) / dataset.length;
+
+  const yPoids = d3.scaleLinear()
+    .domain([69,71]) //d3.max(d3.max(dataset,(d) => d.poids))
+    .range([height-marginBottom,marginTop])
+  const yCalories = d3.scaleLinear()
+    .domain([250,450]) //d3.max(d3.max(dataset,(d) => d.calories))
+    .range([height-marginBottom,marginTop])
+
+  return (
+    <BarChartDiv>
+    <svg width={width} height={height}>
+      <text x="32" y="40" fontFamily='Roboto' fontWeight='500' fontSize='15px' fill='#20253A'>Activité quotidienne</text>
+      <g  transform={"translate("+ (width-303) +" 25)"}>
+        <circle cx="5" cy="11" r="4" fill="#282D30"/>
+        <text x="15" y="15" fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>Poids (kg)</text>
+        <circle cx="100" cy="11" r="4" fill="#E60000"/>
+        <text x="110" y="15" fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>Calories brûlées (kCal)</text>
+      </g>
+      <g>
+        <line x1={marginLeft} y1={yPoids(69)} x2={width - marginRight} y2={yPoids(69)} stroke="#DEDEDE" />
+        <line x1={marginLeft} y1={yPoids(70)} x2={width - marginRight} y2={yPoids(70)} stroke="#DEDEDE" stroke-dasharray="4"/>
+        <line x1={marginLeft} y1={yPoids(71)} x2={width - marginRight} y2={yPoids(71)} stroke="#DEDEDE" stroke-dasharray="4"/>
+        <text x={width - marginRight + 20} y={yPoids(71) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>71</text>
+        <text x={width - marginRight + 20} y={yPoids(70) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>70</text>
+        <text x={width - marginRight + 20} y={yPoids(69) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>69</text>
+      </g>
+      <g transform={"translate("+marginLeft+" "+marginTop+")"}>
+        {dataset.map((d,i) => (<rect  key={"mouseover"+i} 
+                                      x={barWidth * i} 
+                                      y="0" 
+                                      width={barWidth} 
+                                      height={height-marginBottom-marginTop}
+                                      fill="#C4C4C4" 
+                                      opacity="0" 
+                                      onMouseOver={function(evt){evt.target.setAttribute('opacity', '0.5');}}
+                                      onMouseOut={function(evt){evt.target.setAttribute('opacity', '0');}} />))}
+      </g>
+      <g transform={"translate("+marginLeft+" 0)"}>
+        {dataset.map((d,i) => (<rect  key={"poids"+i} 
+                                      x={(barWidth * i) + (barWidth-6)/2 - 10} 
+                                      y={yPoids(d.poids)} 
+                                      width="7"
+                                      height={height-marginBottom - yPoids(d.poids)} 
+                                      fill="#282D30"
+                                      rx="3" />))}
+      </g>
+      <g transform={"translate("+marginLeft+" 0)"}>
+        {dataset.map((d,i) => (<rect  key={"calories"+i} 
+                                      x={(barWidth * i) + (barWidth-6)/2 + 3} 
+                                      y={yCalories(d.calories)} 
+                                      width="7"
+                                      height={height-marginBottom - yCalories(d.calories)} 
+                                      fill="#E60000"
+                                      rx="3" />))}
+      </g>
+      <g transform={"translate("+marginLeft+" 200)"}>
+        {dataset.map((d,i) => (<text  key={"jour"+i} 
+                                      x={(barWidth * i) + (barWidth-6)/2 - 5} 
+                                      y="0" 
+                                      fontFamily='Roboto' 
+                                      fontWeight='500' 
+                                      fontSize='14px' 
+                                      fill='#9B9EAC'
+                                >{d.jour}</text>))}
+      </g>
+    </svg>
+    </BarChartDiv>
+  )
+}
+
+export default BarChart;

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const NavLBG = styled.div`
-  position: absolute;
+  position: fixed;
   width: 117px;
   height: 100%;
   left: 0px;
