@@ -9,15 +9,20 @@ const RadialBarChartDiv = styled.div`
 `
 
 function RadialBarChart() {
+  //http://localhost:3000/user/12
+  const dataset = {"data":{"id":12,"userInfos":{"firstName":"Karl","lastName":"Dovineau","age":31},"todayScore":0.12,"keyData":{"calorieCount":1930,"proteinCount":155,"carbohydrateCount":290,"lipidCount":50}}}
   const width = 250;
   const height = 250;
 
-  const data = 12;
+  console.log(dataset.data);
+  console.log(dataset.data.todayScore);
+
+  const data = dataset.data.todayScore;
   const center = {x:width/2, y:height/2};
   const r = 80;
   const offset = Math.PI;
   const scale = d3.scaleLinear()
-    .domain([0,100])
+    .domain([0,1])
     .range([2*Math.PI,0]);
 
   const point = {
@@ -31,7 +36,7 @@ function RadialBarChart() {
         <svg width={width} height={height}>
           <text x="32" y="40" fontFamily='Roboto' fontWeight='500' fontSize='15px' fill='#20253A'>Score</text>
           <circle cx={width/2} cy={height/2} r="80" fill="#FFFFFF"/>
-          <text x="100" y="120" fontFamily='Roboto' fontWeight='500' fontSize='26px' fill='#282D30'>12%</text>
+          <text x="100" y="120" fontFamily='Roboto' fontWeight='500' fontSize='26px' fill='#282D30'>{data*100 + "%"}</text>
           <text x="90" y="140" fontFamily='Roboto' fontWeight='500' fontSize='18px' fill='#74798C'>de votre</text>
           <text x="92" y="160" fontFamily='Roboto' fontWeight='500' fontSize='18px' fill='#74798C'>objectif</text>
           <g>

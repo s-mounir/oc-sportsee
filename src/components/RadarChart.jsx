@@ -9,6 +9,8 @@ const RadarChartDiv = styled.div`
 `
 
 function RadarChart() {
+  //http://localhost:3000/user/12/performance
+  //{"data":{"userId":12,"kind":{"1":"cardio","2":"energy","3":"endurance","4":"strength","5":"speed","6":"intensity"},"data":[{"value":80,"kind":1},{"value":120,"kind":2},{"value":140,"kind":3},{"value":50,"kind":4},{"value":200,"kind":5},{"value":90,"kind":6}]}}
   const dataset = [{axis:"Intensité", value: 5},
                 {axis:"Vitesse", value: 9},
                 {axis:"Force", value: 7},
@@ -64,7 +66,6 @@ function RadarChart() {
     if([0,3].includes(i)){textAnchor="middle";}
     else if([1,2].includes(i)){textAnchor="start";}
     else{textAnchor="end";}
-    console.log(i +" : "+ d.axis)
 
     const label = {
       name: d.axis,
@@ -75,7 +76,6 @@ function RadarChart() {
     labels.push(label);
     i++;
   }
-  console.log(labels);
 
   return (
     <RadarChartDiv>

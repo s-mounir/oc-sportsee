@@ -52,6 +52,12 @@ const DashboardCards = styled.div`
 `
 
 function Home() {
+    fetch(`http://localhost:3000/users`)
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+        this.setState({ profileData: jsonResponse?.freelanceData })
+    })
+
     const FirstName = 'Thomas';
 
     return (

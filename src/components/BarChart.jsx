@@ -9,6 +9,8 @@ const BarChartDiv = styled.div`
 `
 
 function BarChart() {
+  //http://localhost:3000/user/12/activity
+  //{"data":{"userId":12,"sessions":[{"day":"2020-07-01","kilogram":80,"calories":240},{"day":"2020-07-02","kilogram":80,"calories":220},{"day":"2020-07-03","kilogram":81,"calories":280},{"day":"2020-07-04","kilogram":81,"calories":290},{"day":"2020-07-05","kilogram":80,"calories":160},{"day":"2020-07-06","kilogram":78,"calories":162},{"day":"2020-07-07","kilogram":76,"calories":390}]}}
   const dataset = [{jour:1,poids:69.6,calories:310},
     {jour:2,poids:70,calories:320},
     {jour:3,poids:69.9,calories:330},
@@ -67,7 +69,7 @@ function BarChart() {
       </g>
       <g transform={"translate("+marginLeft+" 0)"}>
         {dataset.map((d,i) => (<rect  key={"poids"+i} 
-                                      x={(barWidth * i) + (barWidth-6)/2 - 10} 
+                                      x={(barWidth * i) + (barWidth)/2 - 10} 
                                       y={yPoids(d.poids)} 
                                       width="7"
                                       height={height-marginBottom - yPoids(d.poids)} 
@@ -76,7 +78,7 @@ function BarChart() {
       </g>
       <g transform={"translate("+marginLeft+" 0)"}>
         {dataset.map((d,i) => (<rect  key={"calories"+i} 
-                                      x={(barWidth * i) + (barWidth-6)/2 + 3} 
+                                      x={(barWidth * i) + (barWidth)/2 + 3} 
                                       y={yCalories(d.calories)} 
                                       width="7"
                                       height={height-marginBottom - yCalories(d.calories)} 
@@ -85,12 +87,13 @@ function BarChart() {
       </g>
       <g transform={"translate("+marginLeft+" 200)"}>
         {dataset.map((d,i) => (<text  key={"jour"+i} 
-                                      x={(barWidth * i) + (barWidth-6)/2 - 5} 
+                                      x={(barWidth * i) + (barWidth)/2} 
                                       y="0" 
                                       fontFamily='Roboto' 
                                       fontWeight='500' 
                                       fontSize='14px' 
                                       fill='#9B9EAC'
+                                      textAnchor='middle'
                                 >{d.jour}</text>))}
       </g>
     </svg>

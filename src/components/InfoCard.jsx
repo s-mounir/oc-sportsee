@@ -31,6 +31,8 @@ const Label = styled.p`
 `
 
 function InfoCard(props) {
+  //http://localhost:3000/user/12
+  //{"data":{"id":12,"userInfos":{"firstName":"Karl","lastName":"Dovineau","age":31},"todayScore":0.12,"keyData":{"calorieCount":1930,"proteinCount":155,"carbohydrateCount":290,"lipidCount":50}}}
   const values = [{label: 'Calories', value: '1,930kCal'},
                   {label: 'Proteines', value: '155g'},
                   {label: 'Glucides', value: '290g'},
