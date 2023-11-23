@@ -45,14 +45,12 @@ function RadarChart() {
     }
     polygons.push(array)
   }
-  console.log(polygons)
-    
+
   return (
     <RadarChartDiv>
       <svg width={size} height={size}>
         <g> 
-        {polygons.map((d,i) => (<polygon points={d} fill="none" stroke="white"/>))}
-          
+        {polygons.map((d,i) => (<polygon key={"polygon"+i} points={d} fill="none" stroke="white"/>))}
         </g>
       </svg>
     </RadarChartDiv>
