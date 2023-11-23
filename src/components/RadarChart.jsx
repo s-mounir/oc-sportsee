@@ -9,22 +9,23 @@ const RadarChartDiv = styled.div`
 `
 
 function RadarChart() {
-  const data = [{axis:"Intensité", value: 13},
-                {axis:"Vitesse", value: 6},
-                {axis:"Force", value: 5},
+  const dataset = [{axis:"Intensité", value: 5},
+                {axis:"Vitesse", value: 9},
+                {axis:"Force", value: 7},
                 {axis:"Endurance", value: 9},
-                {axis:"Energie", value: 2},
+                {axis:"Energie", value: 9},
                 {axis:"Cardio", value: 7}];
   
-  const numSides = 5;
+  const numSides = 6;
   const numLevel = 5;
   const size = 230;
   const maxLength = 100;
   const offset = Math.PI;
   const polyangle = (Math.PI * 2)/numSides;
-  const r = 0.8*size;
-  const r0 = r/2;
   const center = {x:size/2, y:size/2};
+  const scale = d3.scaleLinear()
+    .domain([0,10]) //d3.max(dataset,(d) => d.value)
+    .range([0,maxLength]);
 
   function generatePoint({length, angle}) {
     const point = {
@@ -34,6 +35,7 @@ function RadarChart() {
     return point;
   }
 
+  // create 5 hexagons 
   const polygons = [];
   for(let i=1; i<=numLevel; i++){
     let array = "";
@@ -46,11 +48,42 @@ function RadarChart() {
     polygons.push(array)
   }
 
+  // create data shape + Labels
+  let array = "";
+  let labels=[];
+  let i = 0;
+  for(const d of dataset){
+    //data shape
+    const theta = i*polyangle;
+    const point = generatePoint({length:scale(d.value), angle:theta});
+    array = array.concat(point.x,",",point.y," ")
+
+    //labels
+    const labelPoint = generatePoint( { length:( size / 2 ), angle:theta } );
+    let textAnchor;
+    if([0,3].includes(i)){textAnchor="middle";}
+    else if([1,2].includes(i)){textAnchor="start";}
+    else{textAnchor="end";}
+    console.log(i +" : "+ d.axis)
+
+    const label = {
+      name: d.axis,
+      x: labelPoint.x,
+      y: labelPoint.y,
+      textAnchor: textAnchor
+    };
+    labels.push(label);
+    i++;
+  }
+  console.log(labels);
+
   return (
     <RadarChartDiv>
-      <svg width={size} height={size}>
-        <g> 
+      <svg width={size+50} height={size+30}>
+        <g transform={"translate(25 15)"}>
         {polygons.map((d,i) => (<polygon key={"polygon"+i} points={d} fill="none" stroke="white"/>))}
+        <polygon key={"polygonData"} points={array} fill="#FF0101" opacity="70%"/>
+        {labels.map((d,i) => (<text key={"label"+i} x={d.x} y={d.y} textAnchor={d.textAnchor} fill="#FFFFFF" fontSize="12px" fontFamily='Roboto'>{d.name}</text>))}
         </g>
       </svg>
     </RadarChartDiv>
