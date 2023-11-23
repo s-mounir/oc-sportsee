@@ -21,38 +21,37 @@ const LineChartTitle = styled.p`
 `
 
 function LineChart() {
-  const dataset = [{jour:1,poids:69.6,calories:310},
-    {jour:2,poids:70,calories:320},
-    {jour:3,poids:69.9,calories:330},
-    {jour:4,poids:69.8,calories:340},
-    {jour:5,poids:69.7,calories:350},
-    {jour:6,poids:69.6,calories:360},
-    {jour:7,poids:69.5,calories:370},
-    {jour:8,poids:69.4,calories:380},
-    {jour:9,poids:69.3,calories:390},
-    {jour:10,poids:69.2,calories:400}];
+  const dataset = [{jour:'L',durée:65},
+  {jour:'M',durée:66},
+  {jour:'M',durée:67},
+  {jour:'J',durée:66},
+  {jour:'V',durée:65},
+  {jour:'S',durée:66},
+  {jour:'D',durée:67}];
 
-  const width = 258;
+  const width = 300;
   const height = 145;
   const marginTop = 5;
   const marginRight = 0;
   const marginBottom = 10;
   const marginLeft = 0;
-  const barWidth = (width - marginRight - marginLeft) / dataset.length;
 
-  const yPoids = d3.scaleLinear()
-    .domain([69,71]) //d3.max(d3.max(dataset,(d) => d.poids))
-    .range([0,height-marginTop-marginBottom])
+  const x = d3.scaleBand()
+    .domain(dataset) //d3.max(d3.max(dataset,(d) => d.poids))
+    .range([0,width])
+  const y = d3.scaleLinear()
+    .domain([60,70]) //d3.max(d3.max(dataset,(d) => d.poids))
+    .range([height-marginBottom,marginTop])
   const line = d3.line()
-                  .x((d,i) => barWidth * i)
-                  .y((d) => yPoids(d.poids))
+                  .x((d,i) => x(d))
+                  .y((d) => y(d.durée))
                   .curve(d3.curveCatmullRom.alpha(0.5));
 
     return (
-      <LineChartDiv>
+      <LineChartDiv className='lineChartDiv'>
         <LineChartTitle>Durée moyenne des sessions</LineChartTitle>
         <svg>
-        <path fill="none" stroke="#FFFFFF" stroke-width="1.5" d={line(dataset)} />
+        <path fill="none" stroke="#FFFFFF" strokeWidth="1.5" d={line(dataset)} />
         </svg>
       </LineChartDiv>
     );

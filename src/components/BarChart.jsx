@@ -48,8 +48,8 @@ function BarChart() {
       </g>
       <g>
         <line x1={marginLeft} y1={yPoids(69)} x2={width - marginRight} y2={yPoids(69)} stroke="#DEDEDE" />
-        <line x1={marginLeft} y1={yPoids(70)} x2={width - marginRight} y2={yPoids(70)} stroke="#DEDEDE" stroke-dasharray="4"/>
-        <line x1={marginLeft} y1={yPoids(71)} x2={width - marginRight} y2={yPoids(71)} stroke="#DEDEDE" stroke-dasharray="4"/>
+        <line x1={marginLeft} y1={yPoids(70)} x2={width - marginRight} y2={yPoids(70)} stroke="#DEDEDE" strokeDasharray="4"/>
+        <line x1={marginLeft} y1={yPoids(71)} x2={width - marginRight} y2={yPoids(71)} stroke="#DEDEDE" strokeDasharray="4"/>
         <text x={width - marginRight + 20} y={yPoids(71) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>71</text>
         <text x={width - marginRight + 20} y={yPoids(70) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>70</text>
         <text x={width - marginRight + 20} y={yPoids(69) + 4} fontFamily='Roboto' fontWeight='500' fontSize='14px' fill='#74798C'>69</text>
