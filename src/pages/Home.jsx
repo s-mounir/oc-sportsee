@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 import { useFetch } from '../utils/hooks';
 import BarChart from '../components/BarChart';
@@ -53,16 +54,27 @@ const DashboardCards = styled.div`
     gap: 30px;
 `
 
+const Error = styled.span`
+    position: absolute;
+    top: 100px;
+    left: 117px;
+`
+
 function Home() {
-    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch('12')
+    const { id } = useParams()
+    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist } = useFetch(id)
+
+    if(error){
+        return <Error>Les données sont indisponible pour le moment</Error>
+    }
+    if(!userExist){
+        return <Error>Cet utilisateur n'existe pas</Error>
+    }
+
     const userInfo = dataUser?.data
     const performance = dataPerformance?.data
     const activity = dataActivity?.data
     const session = dataSessions?.data
-
-    if(error){
-        return <span>Oups il y a eu un problème</span>
-    }
 
     return (
         <Body>

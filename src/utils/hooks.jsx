@@ -7,6 +7,7 @@ export function useFetch(id) {
   const [dataPerformance, setDataPerformance] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [userExist, setUserExist] = useState(true)
 
   useEffect(() => {
     if (!id) return
@@ -20,10 +21,14 @@ export function useFetch(id) {
 
     Promise.all([requestUser, requestActivity, requestSessions, requestPerformance])
         .then(([dataUser, dataActivity, dataSessions, dataPerformance]) => {
-            setDataUser(dataUser);
-            setDataActivity(dataActivity);
-            setDataSessions(dataSessions);
-            setDataPerformance(dataPerformance);
+            if(dataUser==='can not get user'){
+              setUserExist(false);
+            }else{
+              setDataUser(dataUser);
+              setDataActivity(dataActivity);
+              setDataSessions(dataSessions);
+              setDataPerformance(dataPerformance);
+            }
         })
         .catch(error => {
             setError(error);
@@ -33,5 +38,5 @@ export function useFetch(id) {
         }
         );
     },[id])
-  return { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error }
+  return { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist }
 }

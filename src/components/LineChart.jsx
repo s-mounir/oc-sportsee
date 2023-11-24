@@ -22,8 +22,7 @@ const LineChartTitle = styled.p`
 
 function LineChart(props) {
   const dataset = props.data.sessions;
-  console.log(dataset)
-
+  
   const width = 300;
   const height = 145;
   const marginTop = 5;
