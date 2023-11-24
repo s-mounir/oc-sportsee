@@ -54,7 +54,7 @@ const DashboardCards = styled.div`
 `
 
 function Home() {
-    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch('12')
+    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch('18')
     const userInfo = dataUser?.data
     const performance = dataPerformance?.data
 

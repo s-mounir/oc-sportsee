@@ -8,17 +8,9 @@ const RadarChartDiv = styled.div`
   border-radius: 5px;
 `
 
-function RadarChart() {
-  //http://localhost:3000/user/12/performance
-  const data={"data":{"userId":12,"kind":{"1":"cardio","2":"energy","3":"endurance","4":"strength","5":"speed","6":"intensity"},"data":[{"value":80,"kind":1},{"value":120,"kind":2},{"value":140,"kind":3},{"value":50,"kind":4},{"value":200,"kind":5},{"value":90,"kind":6}]}}
-  // const dataset = [{axis:"Intensité", value: 5},
-  //               {axis:"Vitesse", value: 9},
-  //               {axis:"Force", value: 7},
-  //               {axis:"Endurance", value: 9},
-  //               {axis:"Energie", value: 9},
-  //               {axis:"Cardio", value: 7}];
-  
-  const dataValue = data.data.data
+function RadarChart(props) {
+  const dataValue=props.data.data //[{value: 80, kind: 1},{value: 120, kind: 2},{value: 140, kind: 3},{value: 50, kind: 4},{value: 200, kind: 5},{value: 90, kind: 6}]
+  const dataLabel=props.data.kind //{1: 'cardio', 2: 'energy', 3: 'endurance', 4: 'strength', 5: 'speed', 6: 'intensity'}
 
   const numSides = 6;
   const numLevel = 5;
@@ -70,7 +62,7 @@ function RadarChart() {
     else{textAnchor="end";}
 
     const label = {
-      name: d.axis,
+      name: dataLabel[d.kind],
       x: labelPoint.x,
       y: labelPoint.y,
       textAnchor: textAnchor
