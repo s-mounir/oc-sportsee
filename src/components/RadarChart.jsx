@@ -10,14 +10,16 @@ const RadarChartDiv = styled.div`
 
 function RadarChart() {
   //http://localhost:3000/user/12/performance
-  //{"data":{"userId":12,"kind":{"1":"cardio","2":"energy","3":"endurance","4":"strength","5":"speed","6":"intensity"},"data":[{"value":80,"kind":1},{"value":120,"kind":2},{"value":140,"kind":3},{"value":50,"kind":4},{"value":200,"kind":5},{"value":90,"kind":6}]}}
-  const dataset = [{axis:"Intensité", value: 5},
-                {axis:"Vitesse", value: 9},
-                {axis:"Force", value: 7},
-                {axis:"Endurance", value: 9},
-                {axis:"Energie", value: 9},
-                {axis:"Cardio", value: 7}];
+  const data={"data":{"userId":12,"kind":{"1":"cardio","2":"energy","3":"endurance","4":"strength","5":"speed","6":"intensity"},"data":[{"value":80,"kind":1},{"value":120,"kind":2},{"value":140,"kind":3},{"value":50,"kind":4},{"value":200,"kind":5},{"value":90,"kind":6}]}}
+  // const dataset = [{axis:"Intensité", value: 5},
+  //               {axis:"Vitesse", value: 9},
+  //               {axis:"Force", value: 7},
+  //               {axis:"Endurance", value: 9},
+  //               {axis:"Energie", value: 9},
+  //               {axis:"Cardio", value: 7}];
   
+  const dataValue = data.data.data
+
   const numSides = 6;
   const numLevel = 5;
   const size = 230;
@@ -26,7 +28,7 @@ function RadarChart() {
   const polyangle = (Math.PI * 2)/numSides;
   const center = {x:size/2, y:size/2};
   const scale = d3.scaleLinear()
-    .domain([0,10]) //d3.max(dataset,(d) => d.value)
+    .domain([0,d3.max(dataValue,(d) => d.value)])
     .range([0,maxLength]);
 
   function generatePoint({length, angle}) {
@@ -54,7 +56,7 @@ function RadarChart() {
   let array = "";
   let labels=[];
   let i = 0;
-  for(const d of dataset){
+  for(const d of dataValue){
     //data shape
     const theta = i*polyangle;
     const point = generatePoint({length:scale(d.value), angle:theta});

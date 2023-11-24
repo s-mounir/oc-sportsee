@@ -14,9 +14,6 @@ function RadialBarChart() {
   const width = 250;
   const height = 250;
 
-  console.log(dataset.data);
-  console.log(dataset.data.todayScore);
-
   const data = dataset.data.todayScore;
   const center = {x:width/2, y:height/2};
   const r = 80;

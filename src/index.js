@@ -27,8 +27,8 @@ root.render(
       <Header />
       <LateralBar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profil" element={<Home />} />
+        <Route path="/:id" element={<Home />} />
+        <Route path="/profil/" element={<Home />} />
         <Route path="/reglage" element={<Home />} />
         <Route path="/communaute" element={<Home />} />
         <Route path="*" element={<Error />} />

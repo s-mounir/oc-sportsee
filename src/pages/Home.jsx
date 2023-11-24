@@ -1,10 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
+import { useFetch } from '../utils/hooks';
 import BarChart from '../components/BarChart';
 import LineChart from '../components/LineChart';
 import RadarChart from '../components/RadarChart';
 import RadialBarChart from '../components/RadialBarChart';
 import InfoCard from '../components/InfoCard';
+
 
 const Body = styled.div`
     position: absolute;
@@ -52,21 +54,26 @@ const DashboardCards = styled.div`
 `
 
 function Home() {
-    fetch(`http://localhost:3000/users`)
-    .then((response) => response.json())
-    .then((jsonResponse) => {
-        this.setState({ profileData: jsonResponse?.freelanceData })
-    })
+    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch(
+        `http://localhost:3000/user/12`
+      )
+    const userInfo = dataUser?.data
 
-    const FirstName = 'Thomas';
+    if(error){
+        return <span>Oups il y a eu un problème</span>
+    }
 
     return (
         <Body>
-            <div>
-                <Bonjour>Bonjour <FNSpan>{FirstName}</FNSpan></Bonjour>
-                <HeaderText>Félicitation ! Vous avez explosé vos objectifs hier 👏</HeaderText>
-            </div>
-            <Dashboard>
+            {isLoading ? (
+                <span>J'arrive!</span>
+            ) : (
+                <div>
+                <div>
+                    <Bonjour>Bonjour <FNSpan>{userInfo.userInfos.firstName}</FNSpan></Bonjour>
+                    <HeaderText>Félicitation ! Vous avez explosé vos objectifs hier 👏</HeaderText>
+                </div>
+                <Dashboard>
                 <BarChart />
                 <LineChart />
                 <RadarChart />
@@ -102,6 +109,8 @@ function Home() {
                     </InfoCard>
                 </DashboardCards> 
             </Dashboard>
+            </div>
+            )}
         </Body>
     );
   }
