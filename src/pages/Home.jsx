@@ -54,9 +54,10 @@ const DashboardCards = styled.div`
 `
 
 function Home() {
-    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch('18')
+    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error } = useFetch('12')
     const userInfo = dataUser?.data
     const performance = dataPerformance?.data
+    const activity = dataActivity?.data
 
     if(error){
         return <span>Oups il y a eu un problème</span>
@@ -73,7 +74,7 @@ function Home() {
                         <HeaderText>Félicitation ! Vous avez explosé vos objectifs hier 👏</HeaderText>
                     </div>
                     <Dashboard>
-                        <BarChart />
+                        <BarChart data={activity}/>
                         <LineChart />
                         <RadarChart data={performance}/>
                         <RadialBarChart data={userInfo.todayScore}/>
