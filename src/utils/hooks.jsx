@@ -11,10 +11,10 @@ export function useFetch(id) {
   useEffect(() => {
     if (!id) return
 
-    const requestUser = fetch('http://localhost:3000/user/12').then(response => response.json());
-    const requestActivity = fetch('http://localhost:3000/user/12/activity').then(response => response.json());
-    const requestSessions = fetch('http://localhost:3000/user/12/activity').then(response => response.json());
-    const requestPerformance = fetch('http://localhost:3000/user/12/activity').then(response => response.json());
+    const requestUser = fetch(`http://localhost:3000/user/${id}`).then(response => response.json());
+    const requestActivity = fetch(`http://localhost:3000/user/${id}/activity`).then(response => response.json());
+    const requestSessions = fetch(`http://localhost:3000/user/${id}/average-sessions`).then(response => response.json());
+    const requestPerformance = fetch(`http://localhost:3000/user/${id}/performance`).then(response => response.json());
     
     setLoading(true)
 

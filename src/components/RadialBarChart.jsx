@@ -8,13 +8,11 @@ const RadialBarChartDiv = styled.div`
   border-radius: 5px;
 `
 
-function RadialBarChart() {
-  //http://localhost:3000/user/12
-  const dataset = {"data":{"id":12,"userInfos":{"firstName":"Karl","lastName":"Dovineau","age":31},"todayScore":0.12,"keyData":{"calorieCount":1930,"proteinCount":155,"carbohydrateCount":290,"lipidCount":50}}}
+function RadialBarChart(props) {
   const width = 250;
   const height = 250;
 
-  const data = dataset.data.todayScore;
+  const data = props.data>=0&props.data<=100?props.data:0;
   const center = {x:width/2, y:height/2};
   const r = 80;
   const offset = Math.PI;
