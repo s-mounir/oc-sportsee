@@ -58,6 +58,7 @@ function Home() {
     const userInfo = dataUser?.data
     const performance = dataPerformance?.data
     const activity = dataActivity?.data
+    const session = dataSessions?.data
 
     if(error){
         return <span>Oups il y a eu un problème</span>
@@ -75,7 +76,7 @@ function Home() {
                     </div>
                     <Dashboard>
                         <BarChart data={activity}/>
-                        <LineChart />
+                        <LineChart data={session}/>
                         <RadarChart data={performance}/>
                         <RadialBarChart data={userInfo.todayScore}/>
                         <DashboardCards>

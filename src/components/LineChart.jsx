@@ -20,16 +20,9 @@ const LineChartTitle = styled.p`
   margin-left: 30px;
 `
 
-function LineChart() {
-  //http://localhost:3000/user/12/average-sessions
-  //{"data":{"userId":12,"sessions":[{"day":1,"sessionLength":30},{"day":2,"sessionLength":23},{"day":3,"sessionLength":45},{"day":4,"sessionLength":50},{"day":5,"sessionLength":0},{"day":6,"sessionLength":0},{"day":7,"sessionLength":60}]}}
-  const dataset = [{jour:'L',durée:65},
-  {jour:'M',durée:66},
-  {jour:'M',durée:67},
-  {jour:'J',durée:66},
-  {jour:'V',durée:65},
-  {jour:'S',durée:66},
-  {jour:'D',durée:67}];
+function LineChart(props) {
+  const dataset = props.data.sessions;
+  console.log(dataset)
 
   const width = 300;
   const height = 145;
@@ -39,14 +32,15 @@ function LineChart() {
   const marginLeft = 0;
 
   const x = d3.scaleBand()
-    .domain(dataset) //d3.max(d3.max(dataset,(d) => d.poids))
+    .domain(dataset) //d3.max(dataset,(d) => d.poids)
     .range([0,width])
   const y = d3.scaleLinear()
-    .domain([60,70]) //d3.max(d3.max(dataset,(d) => d.poids))
+    .domain([d3.min(dataset,(d) => d.sessionLength),d3.max(dataset,(d) => d.sessionLength)])
     .range([height-marginBottom,marginTop])
+
   const line = d3.line()
                   .x((d,i) => x(d))
-                  .y((d) => y(d.durée))
+                  .y((d) => y(d.sessionLength))
                   .curve(d3.curveCatmullRom.alpha(0.5));
 
     return (
