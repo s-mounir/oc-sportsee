@@ -56,8 +56,15 @@ const DashboardCards = styled.div`
 
 const Error = styled.span`
     position: absolute;
-    top: 100px;
-    left: 117px;
+    top: 50%;
+    left: 50%;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    color: #000000;
+    margin-left: -230px;
+    margin-top: -29px;
 `
 
 const LoaderWrapper = styled.div`
