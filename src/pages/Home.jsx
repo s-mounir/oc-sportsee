@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { useFetch } from '../utils/hooks';
@@ -60,6 +60,32 @@ const Error = styled.span`
     left: 117px;
 `
 
+const LoaderWrapper = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+`
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+const Loader = styled.div`
+  padding: 10px;
+  border: 10px solid #FF0101;
+  border-bottom-color: transparent;
+  border-radius: 100px;
+  animation: ${rotate} 1s infinite linear;
+  height: 0;
+  width: 0;
+`
+
 function Home() {
     const { id } = useParams()
     const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist } = useFetch(id)
@@ -79,7 +105,9 @@ function Home() {
     return (
         <Body>
             {isLoading ? (
-                <span>J'arrive!</span>
+                <LoaderWrapper>
+                    <Loader />
+                </LoaderWrapper>
             ) : (
                 <div>
                     <div>

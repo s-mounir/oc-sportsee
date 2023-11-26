@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react'
 
+function dataUserCleaning(data){
+  if(!data.data.todayScore){
+    data.data.todayScore = data.data.score;
+  }
+  return data;
+}
+
 export function useFetch(id) {
   const [dataUser, setDataUser] = useState({})
   const [dataActivity, setDataActivity] = useState({})
@@ -24,7 +31,8 @@ export function useFetch(id) {
             if(dataUser==='can not get user'){
               setUserExist(false);
             }else{
-              setDataUser(dataUser);
+              const cleanedDataUser = dataUserCleaning(dataUser);
+              setDataUser(cleanedDataUser);
               setDataActivity(dataActivity);
               setDataSessions(dataSessions);
               setDataPerformance(dataPerformance);
