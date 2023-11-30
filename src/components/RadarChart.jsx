@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import * as d3 from "d3";
+import { useRef } from "react";
+
+import { useContainerDimensions } from '../utils/hooks';
 
 const RadarChartDiv = styled.div`
   grid-area: 3 / 2 / 5 / 3;
@@ -12,13 +15,15 @@ function RadarChart(props) {
   const dataValue=props.data.data //[{value: 80, kind: 1},{value: 120, kind: 2},{value: 140, kind: 3},{value: 50, kind: 4},{value: 200, kind: 5},{value: 90, kind: 6}]
   const dataLabel=props.data.kind //{1: 'cardio', 2: 'energy', 3: 'endurance', 4: 'strength', 5: 'speed', 6: 'intensity'}
 
+  const getWidth = (props.width - 60)/3;
+  const width = getWidth<50 ? 50 : getWidth;
+  const height = 145;
   const numSides = 6;
   const numLevel = 5;
-  const size = 230;
   const maxLength = 100;
   const offset = Math.PI;
   const polyangle = (Math.PI * 2)/numSides;
-  const center = {x:size/2, y:size/2};
+  const center = {x:width/2, y:height/2};
   const scale = d3.scaleLinear()
     .domain([0,d3.max(dataValue,(d) => d.value)])
     .range([0,maxLength]);
@@ -55,7 +60,7 @@ function RadarChart(props) {
     array = array.concat(point.x,",",point.y," ")
 
     //labels
-    const labelPoint = generatePoint( { length:( size / 2 ), angle:theta } );
+    const labelPoint = generatePoint( { length:( height / 2 ), angle:theta } );
     let textAnchor;
     if([0,3].includes(i)){textAnchor="middle";}
     else if([1,2].includes(i)){textAnchor="start";}
@@ -73,7 +78,7 @@ function RadarChart(props) {
 
   return (
     <RadarChartDiv>
-      <svg width={size+50} height={size+30}>
+      <svg width={width} height={height}>
         <g transform={"translate(25 15)"}>
         {polygons.map((d,i) => (<polygon key={"polygon"+i} points={d} fill="none" stroke="white"/>))}
         <polygon key={"polygonData"} points={array} fill="#FF0101" opacity="70%"/>

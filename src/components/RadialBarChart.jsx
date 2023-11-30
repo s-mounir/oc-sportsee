@@ -9,7 +9,8 @@ const RadialBarChartDiv = styled.div`
 `
 
 function RadialBarChart(props) {
-  const width = 250;
+  const getWidth = (props.width - 60)/3;
+  const width = getWidth<50 ? 50 : getWidth;
   const height = 250;
 
   const data = props.data>=0&props.data<=100?props.data:0;

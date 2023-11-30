@@ -11,13 +11,14 @@ const BarChartDiv = styled.div`
 function BarChart(props) {
   const dataset = props.data.sessions;
   const formatDataset = dataset.map((d) => ({ day:d.day,kilogram:d.kilogram,calories:d.calories, dayFormat: new Date(d.day) }));
-
-  const width = 600;
-  const height = 230;
+  
+  const width = props.width; 
+  const height = 253;
   const marginTop = 70;
   const marginRight = 90;
   const marginBottom = 50;
   const marginLeft = 40;
+
 
   const barWidth = (width - marginRight - marginLeft) / dataset.length;
 
@@ -34,7 +35,7 @@ function BarChart(props) {
 
   return (
     <BarChartDiv>
-    <svg width={width} height={height}>
+    <svg width="100%" height={height}>
       <text x="32" y="40" fontFamily='Roboto' fontWeight='500' fontSize='15px' fill='#20253A'>Activité quotidienne</text>
       <g  transform={"translate("+ (width-303) +" 25)"}>
         <circle cx="5" cy="11" r="4" fill="#282D30"/>
@@ -79,10 +80,10 @@ function BarChart(props) {
                                       fill="#E60000"
                                       rx="3" />))}
       </g>
-      <g transform={"translate("+marginLeft+" 200)"}>
+      <g transform={"translate("+marginLeft+" "+(height-marginBottom)+")"}>
         {formatDataset.map((d,i) => (<text  key={"jour"+i} 
                                       x={(barWidth * i) + (barWidth)/2} 
-                                      y="0" 
+                                      y="20" 
                                       fontFamily='Roboto' 
                                       fontWeight='500' 
                                       fontSize='14px' 

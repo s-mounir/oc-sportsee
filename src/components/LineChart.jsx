@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import * as d3 from "d3";
+import { useRef } from "react";
+
+import { useContainerDimensions } from '../utils/hooks';
 
 
 const LineChartDiv = styled.div`
@@ -22,8 +25,9 @@ const LineChartTitle = styled.p`
 
 function LineChart(props) {
   const dataset = props.data.sessions;
-  
-  const width = 300;
+
+  const getWidth = (props.width - 60)/3;
+  const width = getWidth<50 ? 50 : getWidth;
   const height = 145;
   const marginTop = 5;
   const marginRight = 0;
@@ -43,7 +47,7 @@ function LineChart(props) {
                   .curve(d3.curveCatmullRom.alpha(0.5));
 
     return (
-      <LineChartDiv className='lineChartDiv'>
+      <LineChartDiv>
         <LineChartTitle>Durée moyenne des sessions</LineChartTitle>
         <svg>
         <path fill="none" stroke="#FFFFFF" strokeWidth="1.5" d={line(dataset)} />

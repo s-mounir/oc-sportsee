@@ -48,3 +48,26 @@ export function useFetch(id) {
     },[id])
   return { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist }
 }
+
+
+export function useContainerDimensions(myRef,width,setWidth) {
+
+  useEffect(() => {
+    const getDimensions = () => ((myRef && myRef.current.offsetWidth) || 0);
+
+    const handleResize = () => {
+      setWidth(getDimensions());
+    };
+
+    if (myRef.current) {
+      setWidth(getDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [myRef]);
+  return width;
+}
