@@ -17,7 +17,7 @@ const HeaderDiv = styled.header`
     justify-content: space-between;
 `
 
-const Logo = styled.svg`
+const Logo = styled.img`
     margin-left: 30px;
 `
 
@@ -41,7 +41,7 @@ const NavItem = styled(NavLink)`
 function Header(){
     return (
         <HeaderDiv>
-            <img src="/logoSportSee.png" alt="logo"/>
+            <Logo src="/logoSportSee.png" alt="logo"/>
             <NavT>
                 <NavItem to="/" activeclassname="active" >Accueil</NavItem>
                 <NavItem to="/profil" activeclassname="active" >Profil</NavItem>
