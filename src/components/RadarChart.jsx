@@ -28,7 +28,6 @@ function RadarChart(props) {
   const numSides = dataValue.length;
   const numLevel = 5;
   const smallerSize = Math.min( innerWidth,innerHeight)
-  const smallerOuterSize = Math.min( width,height)
   const maxLength = smallerSize/2;
   const offset = Math.PI;
   const polyangle = (Math.PI * 2)/numSides;
