@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 import * as d3 from "d3";
-import { useRef } from "react";
-
-import { useContainerDimensions } from '../utils/hooks';
-
 
 const LineChartDiv = styled.div`
   grid-area: 3 / 1 / 5 / 2; 
@@ -26,7 +22,7 @@ const LineChartTitle = styled.p`
 function LineChart(props) {
   const dataset = props.data.sessions;
 
-  const getWidth = (props.width - 60)/3;
+  const getWidth = props.width;
   const width = getWidth<50 ? 50 : getWidth;
   const height = 145;
   const marginTop = 5;
@@ -35,7 +31,7 @@ function LineChart(props) {
   const marginLeft = 0;
 
   const x = d3.scaleBand()
-    .domain(dataset) //d3.max(dataset,(d) => d.poids)
+    .domain(dataset)
     .range([0,width])
   const y = d3.scaleLinear()
     .domain([d3.min(dataset,(d) => d.sessionLength),d3.max(dataset,(d) => d.sessionLength)])
@@ -49,8 +45,8 @@ function LineChart(props) {
     return (
       <LineChartDiv>
         <LineChartTitle>Durée moyenne des sessions</LineChartTitle>
-        <svg>
-        <path fill="none" stroke="#FFFFFF" strokeWidth="1.5" d={line(dataset)} />
+        <svg width={width} height={height}>
+          <path fill="none" stroke="#FFFFFF" strokeWidth="1.5" d={line(dataset)} />
         </svg>
       </LineChartDiv>
     );
