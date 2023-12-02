@@ -54,7 +54,7 @@ const Loader = styled.div`
 
 function Home() {
     const { id } = useParams()
-    const { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist } = useFetch(id)
+    const { isLoading, response, error, userExist } = useFetch(id)
     
     if(error){
         return <Error>Les données sont indisponible pour le moment</Error>
@@ -70,7 +70,7 @@ function Home() {
                     <Loader />
                 </LoaderWrapper>
             ) : (
-                <Dashboard datauser={dataUser} dataperformance={dataPerformance} dataactivity={dataActivity} datasessions={dataSessions}/>
+                <Dashboard response={response}/>
             )}
         </Body>
     );

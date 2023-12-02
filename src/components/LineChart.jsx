@@ -9,7 +9,7 @@ const LineChartDiv = styled.div`
 `
 
 function LineChart(props) {
-  const dataset = props.data.sessions;
+  const dataset = props.data;
 
   const getWidth = props.width;
   const width = getWidth<50 ? 50 : getWidth;

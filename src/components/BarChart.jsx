@@ -9,9 +9,8 @@ const BarChartDiv = styled.div`
 `
 
 function BarChart(props) {
-  const dataset = props.data.sessions;
-  const formatDataset = dataset.map((d) => ({ day:d.day,kilogram:d.kilogram,calories:d.calories, dayFormat: new Date(d.day) }));
-  
+  const dataset = props.data;
+
   const height = 253;
   const marginTop = 70;
   const marginRight = 90;
@@ -81,7 +80,7 @@ function BarChart(props) {
                                       rx="3" />))}
       </g>
       <g transform={"translate("+marginLeft+" "+(height-marginBottom)+")"}>
-        {formatDataset.map((d,i) => (<text  key={"jour"+i} 
+        {dataset.map((d,i) => (<text  key={"jour"+i} 
                                       x={(barWidth * i) + (barWidth)/2} 
                                       y="20" 
                                       fontFamily='Roboto' 
@@ -89,7 +88,7 @@ function BarChart(props) {
                                       fontSize='14px' 
                                       fill='#9B9EAC'
                                       textAnchor='middle'
-                                >{d.dayFormat.getDate()}</text>))}
+                                >{d.day}</text>))}
       </g>
     </svg>
     </BarChartDiv>

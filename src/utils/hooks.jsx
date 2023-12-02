@@ -1,21 +1,12 @@
 import { useState, useEffect } from 'react'
 import DataModel from './DataModel';
 
-function dataUserCleaning(data){
-  if(!data.data.todayScore){
-    data.data.todayScore = data.data.score;
-  }
-  return data;
-}
-
 export function useFetch(id) {
-  const [dataUser, setDataUser] = useState({})
-  const [dataActivity, setDataActivity] = useState({})
-  const [dataSessions, setDataSessions] = useState({})
-  const [dataPerformance, setDataPerformance] = useState({})
+  const [response, setResponse] = useState()
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [userExist, setUserExist] = useState(true)
+  const data = new DataModel();
 
   useEffect(() => {
     if (!id) return
@@ -32,13 +23,17 @@ export function useFetch(id) {
             if(dataUser==='can not get user'){
               setUserExist(false);
             }else{
-              const cleanedDataUser = dataUserCleaning(dataUser);
-              setDataUser(cleanedDataUser);
-              setDataActivity(dataActivity);
-              setDataSessions(dataSessions);
-              setDataPerformance(dataPerformance);
-              const dataTest = new DataModel(dataUser, dataActivity, dataSessions, dataPerformance)
-              console.log(dataTest)
+              data.setUser(dataUser)
+              data.setActivity(dataActivity)
+              data.setSessions(dataSessions)
+              data.setPerformance(dataPerformance)
+
+              setResponse({
+                user: data.getUser(),
+                activity: data.getActivity(),
+                sessions: data.getSessions(),
+                performance: data.getPerformance()
+              })
             }
         })
         .catch(error => {
@@ -49,7 +44,7 @@ export function useFetch(id) {
         }
         );
     },[id])
-  return { isLoading, dataUser, dataActivity, dataSessions, dataPerformance, error, userExist }
+  return { isLoading, response, error, userExist }
 }
 
 
