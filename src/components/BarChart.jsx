@@ -12,15 +12,15 @@ function BarChart(props) {
   const dataset = props.data.sessions;
   const formatDataset = dataset.map((d) => ({ day:d.day,kilogram:d.kilogram,calories:d.calories, dayFormat: new Date(d.day) }));
   
-  const width = props.width; 
   const height = 253;
   const marginTop = 70;
   const marginRight = 90;
   const marginBottom = 50;
   const marginLeft = 40;
 
-
+  const width = props.width<marginRight+marginLeft ? marginRight+marginLeft : props.width; 
   const barWidth = (width - marginRight - marginLeft) / dataset.length;
+
 
   const yPoids = d3.scaleLinear()
     .domain([d3.min(dataset,(d) => d.kilogram)-1,d3.max(dataset,(d) => d.kilogram)+1])

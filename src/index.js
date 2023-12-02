@@ -8,21 +8,11 @@ import Header from './components/Header';
 import LateralBar from './components/LateralBar';
 import Home from './pages/Home';
 
-const RectangleTest = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1024px;
-    height: 780px;
-    background-color: #d3d3d3;
-    z-index: -10;
-`
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <RectangleTest></RectangleTest>
       <Header />
       <LateralBar />
       <Routes>

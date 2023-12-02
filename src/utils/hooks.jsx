@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import DataModel from './DataModel';
 
 function dataUserCleaning(data){
   if(!data.data.todayScore){
@@ -36,6 +37,8 @@ export function useFetch(id) {
               setDataActivity(dataActivity);
               setDataSessions(dataSessions);
               setDataPerformance(dataPerformance);
+              const dataTest = new DataModel(dataUser, dataActivity, dataSessions, dataPerformance)
+              console.log(dataTest)
             }
         })
         .catch(error => {

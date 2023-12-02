@@ -52,7 +52,6 @@ function Dashboard(props) {
     
     const columnWidth = (getWidth - 90)/4;
     const barChartWidth = columnWidth*3 + 60;
-    console.log(barChartWidth);
 
     const userInfo = props.datauser?.data
     const performance = props.dataperformance?.data

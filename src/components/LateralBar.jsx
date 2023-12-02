@@ -15,7 +15,7 @@ const NavLBG = styled.div`
 const NavL = styled.div`
   position: absolute;
   left: 26px;
-  top: 125px;
+  top: 170px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -73,7 +73,7 @@ function LateralBar() {
             </IconSVG>
           </Icon>
         </NavL>
-        <Copiryght>Copiryght, SportSee 2020</Copiryght>
+        <Copiryght>Copiryght, SportSee 2023</Copiryght>
       </NavLBG>
     );
   }
