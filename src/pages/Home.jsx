@@ -1,8 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import { useParams } from 'react-router-dom';
-
-import Dashboard from '../components/Dashboard';
-import { useFetch } from '../utils/hooks';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom'
 
 const Body = styled.div`
     position: absolute;
@@ -13,65 +10,59 @@ const Body = styled.div`
     height: calc(100% - 161px);
 `
 
-const Error = styled.span`
-    position: absolute;
-    top: 50%;
-    left: 50%;
+const StyledDiv = styled.div`
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+`
+
+const WelcomeText = styled.h1`
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-size: 48px;
-    color: #000000;
-    margin-left: -230px;
-    margin-top: -29px;
+    line-height: 142.6%;
+    margin: 0;
+    text-align: center;
 `
 
-const LoaderWrapper = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
+const ChoosingText = styled.h2`
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 142.6%;
+    margin: 0;
+    text-align: center;
 `
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`
-
-const Loader = styled.div`
-  padding: 10px;
-  border: 10px solid #FF0101;
-  border-bottom-color: transparent;
-  border-radius: 100px;
-  animation: ${rotate} 1s infinite linear;
-  height: 0;
-  width: 0;
+const StyledLink = styled(Link)`
+    background: #FF0101;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0212249);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 30px;
+    color: #FFF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    text-decoration: none;
 `
 
 function Home() {
-    const { id } = useParams()
-    const { isLoading, response, error, userExist } = useFetch(id)
-    
-    if(error){
-        return <Error>Les données sont indisponible pour le moment</Error>
-    }
-    if(!userExist){
-        return <Error>Cet utilisateur n'existe pas</Error>
-    }
 
     return (
         <Body>
-            {isLoading ? (
-                <LoaderWrapper>
-                    <Loader />
-                </LoaderWrapper>
-            ) : (
-                <Dashboard response={response}/>
-            )}
+            <StyledDiv>
+                <WelcomeText>Bienvenu sur SportSee</WelcomeText>
+                <ChoosingText>Veuillez choisir un utilisateur</ChoosingText>
+                <div>
+                    <StyledLink to="/user/12">Karl</StyledLink>
+                    <StyledLink to="/user/18">Cecilia</StyledLink>
+                </div>
+            </StyledDiv>
         </Body>
     );
   }

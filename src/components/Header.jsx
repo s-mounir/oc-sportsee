@@ -44,7 +44,7 @@ function Header(){
             <Logo src="/logoSportSee.png" alt="logo"/>
             <NavT>
                 <NavItem to="/" activeclassname="active" >Accueil</NavItem>
-                <NavItem to="/profil" activeclassname="active" >Profil</NavItem>
+                <NavItem to="/" activeclassname="active" >Profil</NavItem>
                 <NavItem to="/reglage" activeclassname="active" >Réglage</NavItem>
                 <NavItem to="/communaute" activeclassname="active" >Communauté</NavItem>
             </NavT>
