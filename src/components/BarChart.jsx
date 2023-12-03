@@ -8,6 +8,28 @@ const BarChartDiv = styled.div`
   grid-area: 1 / 1 / 3 / 4;
 `
 
+function bar(x,y,w,h,r,f) {
+  // Flag for sweep:
+  if(f === undefined) f = 1;
+  // x coordinates of top of arcs
+  var x0 = x+r;
+  var x1 = x+w-r;
+  // y coordinates of bottom of arcs
+  var y0 = y-h+r;
+
+  // assemble path:
+  var parts = [
+    "M",x,y,               // step 1
+    "L",x,y0,              // step 2
+    "A",r,r,0,0,f,x0,y-h,  // step 3
+    "L",x1,y-h,            // step 4
+    "A",r,r,0,0,f,x+w,y0,  // step 5
+    "L",x+w,y,             // step 6
+    "Z"                    // step 7
+   ];
+  return parts.join(" ");
+}
+
 function BarChart(props) {
   const dataset = props.data;
 
@@ -62,22 +84,24 @@ function BarChart(props) {
                                       onMouseOut={function(evt){evt.target.setAttribute('opacity', '0');}} />))}
       </g>
       <g transform={"translate("+marginLeft+" 0)"}>
-        {dataset.map((d,i) => (<rect  key={"poids"+i} 
-                                      x={(barWidth * i) + (barWidth)/2 - 10} 
-                                      y={yPoids(d.kilogram)} 
-                                      width="7"
-                                      height={height-marginBottom - yPoids(d.kilogram)} 
-                                      fill="#282D30"
-                                      rx="3" />))}
+        {dataset.map((d,i) => (<path key={"poids"+i} 
+                                      d={bar((barWidth * i) + (barWidth)/2 - 10
+                                        ,height-marginBottom
+                                        ,7
+                                        ,height-marginBottom - yPoids(d.kilogram)
+                                        ,3
+                                        ,1)}
+                                      fill="#282D30"/>))} 
       </g>
       <g transform={"translate("+marginLeft+" 0)"}>
-        {dataset.map((d,i) => (<rect  key={"calories"+i} 
-                                      x={(barWidth * i) + (barWidth)/2 + 3} 
-                                      y={yCalories(d.calories)} 
-                                      width="7"
-                                      height={height-marginBottom - yCalories(d.calories)} 
-                                      fill="#E60000"
-                                      rx="3" />))}
+        {dataset.map((d,i) => (<path key={"calories"+i} 
+                                      d={bar((barWidth * i) + (barWidth)/2 + 3
+                                        ,height-marginBottom
+                                        ,7
+                                        ,height-marginBottom - yCalories(d.calories)
+                                        ,3
+                                        ,1)}
+                                      fill="#E60000"/>))} 
       </g>
       <g transform={"translate("+marginLeft+" "+(height-marginBottom)+")"}>
         {dataset.map((d,i) => (<text  key={"jour"+i} 
