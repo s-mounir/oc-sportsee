@@ -21,7 +21,6 @@ function BarChartTooltip(props) {
     }
   
     const { xPos, yPos, kilogram, calories } = props.interactionData;
-    console.log(props.interactionData)
 
     return (
       <TooltipDiv

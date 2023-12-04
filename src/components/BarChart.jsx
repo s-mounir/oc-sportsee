@@ -47,7 +47,6 @@ function BarChart(props) {
   const barWidth = (width - marginRight - marginLeft) / dataset.length;
 
   const [hovered, setHovered] = useState(null);
-  console.log(hovered);
 
   const yPoids = d3.scaleLinear()
     .domain([d3.min(dataset,(d) => d.kilogram)-1,d3.max(dataset,(d) => d.kilogram)+1])
