@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import * as d3 from "d3";
+import { useState } from "react";
+
+import BarChartTooltip from './BarChartTooltip'
 
 const BarChartDiv = styled.div`
   background: #FBFBFB;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0212249);
   border-radius: 5px;
   grid-area: 1 / 1 / 3 / 4;
+  position: relative;
 `
 
 function bar(x,y,w,h,r,f) {
@@ -42,6 +46,8 @@ function BarChart(props) {
   const width = props.width<marginRight+marginLeft ? marginRight+marginLeft : props.width; 
   const barWidth = (width - marginRight - marginLeft) / dataset.length;
 
+  const [hovered, setHovered] = useState(null);
+  console.log(hovered);
 
   const yPoids = d3.scaleLinear()
     .domain([d3.min(dataset,(d) => d.kilogram)-1,d3.max(dataset,(d) => d.kilogram)+1])
@@ -53,6 +59,20 @@ function BarChart(props) {
   const poidsMin = d3.min(dataset,(d) => d.kilogram)-1;
   const poidsMax = d3.max(dataset,(d) => d.kilogram)+1;
   const poidsMed = poidsMin + (poidsMax-poidsMin)/2;
+
+  function mouseover(evt,d,i){
+    evt.target.setAttribute('opacity', '0.5');
+    setHovered({
+      xPos: marginLeft + barWidth * (i+1) + 10,
+      yPos: 50,
+      kilogram: d.kilogram,
+      calories: d.calories,
+    })
+  }
+  function mouseout(evt){
+    evt.target.setAttribute('opacity', '0')
+    setHovered(null);
+  }
 
   return (
     <BarChartDiv>
@@ -80,8 +100,8 @@ function BarChart(props) {
                                       height={height-marginBottom-marginTop}
                                       fill="#C4C4C4" 
                                       opacity="0" 
-                                      onMouseOver={function(evt){evt.target.setAttribute('opacity', '0.5');}}
-                                      onMouseOut={function(evt){evt.target.setAttribute('opacity', '0');}} />))}
+                                      onMouseOver={(evt) => mouseover(evt,d,i)}
+                                      onMouseOut={(evt) => mouseout(evt)} />))}
       </g>
       <g transform={"translate("+marginLeft+" 0)"}>
         {dataset.map((d,i) => (<path key={"poids"+i} 
@@ -115,6 +135,9 @@ function BarChart(props) {
                                 >{d.day}</text>))}
       </g>
     </svg>
+    <div>
+      <BarChartTooltip interactionData={hovered}/>
+    </div>
     </BarChartDiv>
   )
 }
