@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import DataModel from './DataModel';
+import { mockedDataUser,mockedDataActivity,mockedDataSessions,mockedDataPerformance } from './mockedData';
 
 export function useFetch(id) {
   const [response, setResponse] = useState()
@@ -7,14 +8,27 @@ export function useFetch(id) {
   const [error, setError] = useState(false)
   const [userExist, setUserExist] = useState(true)
   const data = new DataModel();
+  const isMocked = true;
 
   useEffect(() => {
+    let requestUser,
+        requestActivity, 
+        requestSessions,
+        requestPerformance;
+
     if (!id) return
 
-    const requestUser = fetch(`http://localhost:3000/user/${id}`).then(response => response.json());
-    const requestActivity = fetch(`http://localhost:3000/user/${id}/activity`).then(response => response.json());
-    const requestSessions = fetch(`http://localhost:3000/user/${id}/average-sessions`).then(response => response.json());
-    const requestPerformance = fetch(`http://localhost:3000/user/${id}/performance`).then(response => response.json());
+    if(isMocked){
+      requestUser = mockedDataUser;
+      requestActivity = mockedDataActivity;
+      requestSessions = mockedDataSessions;
+      requestPerformance = mockedDataPerformance;
+    }else{
+      requestUser = fetch(`http://localhost:3000/user/${id}`).then(response => response.json());
+      requestActivity = fetch(`http://localhost:3000/user/${id}/activity`).then(response => response.json());
+      requestSessions = fetch(`http://localhost:3000/user/${id}/average-sessions`).then(response => response.json());
+      requestPerformance = fetch(`http://localhost:3000/user/${id}/performance`).then(response => response.json());
+    }
     
     setLoading(true)
 
